@@ -5,4 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="signup_error_message">"Make sure you have entered correct username or password or email "</string>
+    <string name="signup_error_title">oops!</string>
+    <string name="Login_error_message">you have entered incorrect username or password</string>
+    <string name="log_out">Logout</string>
 </resources>
