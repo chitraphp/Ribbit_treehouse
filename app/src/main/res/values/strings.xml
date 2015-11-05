@@ -9,4 +9,9 @@
     <string name="signup_error_title">oops!</string>
     <string name="Login_error_message">you have entered incorrect username or password</string>
     <string name="log_out">Logout</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 </resources>

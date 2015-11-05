@@ -3,7 +3,6 @@ package com.example.epicodus.ribbitnew;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 public class LoginActivity extends Activity {
 
@@ -28,6 +26,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(getWindow().FEATURE_INDETERMINATE_PROGRESS);
 
         setContentView(R.layout.activity_login);
 
@@ -43,9 +42,9 @@ public class LoginActivity extends Activity {
 
         mUserName = (EditText) findViewById(R.id.userName);
         mPassword = (EditText) findViewById(R.id.password);
-        mSignUpView = (TextView) findViewById(R.id.signupText);
+        mLoginButton = (Button) findViewById(R.id.loginButton);
 
-        mSignUpView.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String userName = mUserName.getText().toString();
@@ -65,11 +64,13 @@ public class LoginActivity extends Activity {
                     dialog.show();
                 } else {
                     //Login
+                    setProgressBarIndeterminateVisibility(true);
                     ParseUser.logInInBackground(userName, password, new LogInCallback() {
                         @Override
                         public void done(ParseUser user, ParseException e) {
+                            setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainOldActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -105,16 +106,12 @@ public class LoginActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int itemId = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (itemId == R.id.log_out) {
+            ParseUser.logOut();
+//            navigateToLogin();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
